@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="es" class="h-full bg-slate-50">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Síntesis Financiera y Tecnológica 2026</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f7ff',
+                            100: '#e0effe',
+                            500: '#0284c7',
+                            700: '#0369a1',
+                            900: '#0c4a6e',
+                        },
+                        slate: {
+                            850: '#1e293b',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 650px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 320px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 360px;
+            }
+        }
+        .tab-active {
+            border-bottom: 2px solid #0284c7;
+            color: #0284c7;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<!-- Chosen Palette: Warm Neutrals & Deep Slate Blue (Calm, professional, data-centric) -->
+<!-- Application Structure Plan:
+     Designed as an Interactive Executive Dashboard with 4 Domain Sections:
+     1. Executive Summary & Key Indicators (Overview KPI cards & cross-domain impact summary).
+     2. Mexican Banking Integrity Crisis (Interactive timeline of FinCEN §2313a actions, institutional table, breakdown of affected assets).
+     3. AI Macroeconomics & Infrastructure (Interactive capex vs monetization gap bar/line charts, regional diversification grid).
+     4. Industrialized AI & Risk Architecture (Subsea edge-AI comparison matrix, dynamic catastrophe insurance gap calculator).
+     Why: This structure breaks down dense regulatory and technical report sections into digestible interactive modules, allowing stakeholders to quickly filter, compare, and navigate complex data points. -->
+<!-- Visualization & Content Choices:
+     - Banking Crisis: Chronological Interactive Timeline + HTML Table + Donut Chart for asset share.
+     - AI Capex Gap: Combined Bar/Line Chart showing $800B Capex vs $700B monetization gap / cloud baseline.
+     - Subsea AUV Matrix: Interactive comparison cards with specification dynamic details.
+     - Climate Underwriting: Interactive Protection Gap gauge chart & slider simulation.
+     - Confirming NO SVG / NO Mermaid JS. All charts rely on Chart.js (Canvas) and styled HTML/CSS layout blocks. -->
+<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+<body class="h-full flex flex-col font-sans text-slate-700 bg-slate-50">
+
+    <!-- Top Header / Navigation -->
+    <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 bg-brand-700 text-white flex items-center justify-center font-bold rounded shadow">26</div>
+                    <span class="text-lg font-bold text-slate-900 tracking-tight">Síntesis Global Financiera y Tecnológica 2026</span>
+                </div>
+                <nav class="hidden md:flex space-x-8 text-sm text-slate-600" id="main-nav">
+                    <button onclick="switchTab('overview')" id="nav-overview" class="tab-active py-5 px-1 border-b-2 font-medium">Resumen Ejecutivo</button>
+                    <button onclick="switchTab('banking')" id="nav-banking" class="py-5 px-1 border-b-2 border-transparent hover:text-slate-900 font-medium">Crisis Bancaria MX</button>
+                    <button onclick="switchTab('capex')" id="nav-capex" class="py-5 px-1 border-b-2 border-transparent hover:text-slate-900 font-medium">Macroeconomía IA</button>
+                    <button onclick="switchTab('edge-risk')" id="nav-edge-risk" class="py-5 px-1 border-b-2 border-transparent hover:text-slate-900 font-medium">IA Submarina y Riesgo Climático</button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Dynamic Content Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+
+        <!-- SECTION 1: OVERVIEW -->
+        <section id="section-overview" class="space-y-6">
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                <h1 class="text-2xl font-bold text-slate-900 mb-2">Informe Global de Reconfiguración Institucional y IA (2026)</h1>
+                <p class="text-slate-600 leading-relaxed">
+                    Este panel interactivo sintetiza la convergencia de la aplicación regulatoria extraterritorial de EE. UU. en América Latina, el ajuste macroeconómico de infraestructura de Inteligencia Artificial y el despliegue de modelos de IA en fronteras físicas extremas (defensa submarina y suscripción de riesgos climáticos).
+                </p>
+            </div>
+
+            <!-- Key Metrics Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-white p-5 rounded-lg border border-slate-200 shadow-sm">
+                    <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Activos Afectados (Banca MX)</div>
+                    <div class="text-2xl font-bold text-slate-900 mt-1">142.4 B MXN</div>
+                    <div class="text-xs text-red-600 font-medium mt-1">~ $7.04B USD (CIBanco)</div>
+                    <p class="text-xs text-slate-500 mt-2">Intervención bajo Sec. 2313a FEND Off Fentanyl Act por FinCEN.</p>
+                </div>
+                <div class="bg-white p-5 rounded-lg border border-slate-200 shadow-sm">
+                    <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Capex Hyperscalers 2026</div>
+                    <div class="text-2xl font-bold text-brand-700 mt-1">$700B - $830B</div>
+                    <div class="text-xs text-amber-600 font-medium mt-1">Brecha Monetización: ~$230B/año</div>
+                    <p class="text-xs text-slate-500 mt-2">Amazon, Microsoft, Alphabet, Meta y Oracle en expansión masiva.</p>
+                </div>
+                <div class="bg-white p-5 rounded-lg border border-slate-200 shadow-sm">
+                    <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Gasto Global en IA (Gartner)</div>
+                    <div class="text-2xl font-bold text-slate-900 mt-1">$2.52 Trillones</div>
+                    <div class="text-xs text-emerald-600 font-medium mt-1">+44% Crecimiento YoY</div>
+                    <p class="text-xs text-slate-500 mt-2">Incluye Hardware, IaaS, software empresarial y dispositivos.</p>
+                </div>
+                <div class="bg-white p-5 rounded-lg border border-slate-200 shadow-sm">
+                    <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Brecha Protección Climática</div>
+                    <div class="text-2xl font-bold text-slate-900 mt-1">$133 Billones</div>
+                    <div class="text-xs text-slate-500 font-medium mt-1">Déficit No Asegurado (2025)</div>
+                    <p class="text-xs text-slate-500 mt-2">Impulsa modelos de aprendizaje profundo en física de riesgos.</p>
+                </div>
+            </div>
+
+            <!-- Strategic Synthesis Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-5 rounded-lg border border-slate-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-slate-900 text-lg mb-2">1. Control de Cumplimiento Transfronterizo</h3>
+                        <p class="text-sm text-slate-600">FinCEN demostró la capacidad de aislar bancos extranjeros de la liquidez en USD sin listados SDN tradicionales de la OFAC, forzando la automatización en tiempo real del monitoreo transaccional.</p>
+                    </div>
+                    <button onclick="switchTab('banking')" class="mt-4 text-xs font-semibold text-brand-700 hover:text-brand-900 text-left">Ver detalle de la crisis en MX &rarr;</button>
+                </div>
+                <div class="bg-white p-5 rounded-lg border border-slate-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-slate-900 text-lg mb-2">2. Cuellos de Botella Energéticos</h3>
+                        <p class="text-sm text-slate-600">El cuello de botella para la IA se ha desplazado de los chips a la generación eléctrica y la red de transmisión. Se proyectan compromisos energéticos de $200B para respaldar gigavatios de cómputo.</p>
+                    </div>
+                    <button onclick="switchTab('capex')" class="mt-4 text-xs font-semibold text-brand-700 hover:text-brand-900 text-left">Ver análisis de Capex &rarr;</button>
+                </div>
+                <div class="bg-white p-5 rounded-lg border border-slate-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-slate-900 text-lg mb-2">3. Automatización Edge & Resiliencia</h3>
+                        <p class="text-sm text-slate-600">Los enjambres de AUV submarinos sin cable y la suscripción de catástrofes mediante sensores IoT representan el máximo retorno de valor de la IA en entornos físicos y desconectados.</p>
+                    </div>
+                    <button onclick="switchTab('edge-risk')" class="mt-4 text-xs font-semibold text-brand-700 hover:text-brand-900 text-left">Ver robótica y suscripción &rarr;</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: BANKING CRISIS -->
+        <section id="section-banking" class="hidden space-y-6">
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                <h2 class="text-xl font-bold text-slate-900 mb-2">La Crisis de Integridad Financiera en México: FinCEN y la Sec. 2313a</h2>
+                <p class="text-sm text-slate-600 leading-relaxed">
+                    Esta sección examina el impacto de la Ley FEND Off Fentanyl (21 U.S.C. § 2313a) promulgada por EE. UU. La designación de instituciones de "principal preocupación por lavado de dinero" provocó el colapso operativo y la liquidación judicial de intermediarios clave en México.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Interactive Timeline Column -->
+                <div class="bg-white p-5 rounded-lg border border-slate-200 shadow-sm lg:col-span-1">
+                    <h3 class="font-bold text-slate-900 text-base mb-4">Cronología de Desconexión e Intervención</h3>
+                    <div class="space-y-4 text-xs">
+                        <div class="p-3 bg-slate-50 rounded border border-slate-200">
+                            <span class="font-bold text-brand-700">24 Abr 2024</span>
+                            <p class="text-slate-700 mt-1 font-medium">Aprobación Ley FEND Off Fentanyl</p>
+                            <p class="text-slate-500">Se codifica el artículo 21 U.S.C. § 2313a concediendo facultades especiales a FinCEN.</p>
+                        </div>
+                        <div class="p-3 bg-slate-50 rounded border border-slate-200">
+                            <span class="font-bold text-brand-700">25 Jun 2025</span>
+                            <p class="text-slate-700 mt-1 font-medium">Orden Especial FinCEN</p>
+                            <p class="text-slate-500">Designación de CIBanco, Intercam y Vector. Prohibición de transferencias en USD.</p>
+                        </div>
+                        <div class="p-3 bg-slate-50 rounded border border-slate-200">
+                            <span class="font-bold text-brand-700">17 Ago 2025</span>
+                            <p class="text-slate-700 mt-1 font-medium">Demanda de CIBanco en EE. UU.</p>
+                            <p class="text-slate-500">Solicitud de orden de restricción contra FinCEN; posteriormente desestimada.</p>
+                        </div>
+                        <div class="p-3 bg-slate-50 rounded border border-slate-200">
+                            <span class="font-bold text-brand-700">10-13 Oct 2025</span>
+                            <p class="text-slate-700 mt-1 font-medium">Revocación de Licencia y Pagos IPAB</p>
+                            <p class="text-slate-500">CIBanco solicita revocación. IPAB activa seguro garantizando 99.4% de cuentas de ahorro.</p>
+                        </div>
+                        <div class="p-3 bg-slate-50 rounded border border-slate-200">
+                            <span class="font-bold text-brand-700">20 Oct 2025 - Abr 2026</span>
+                            <p class="text-slate-700 mt-1 font-medium">Cierre Completo y Excepción Contada</p>
+                            <p class="text-slate-500">FinCEN enmienda orden en abril de 2026 únicamente para permitir liquidación gubernamental.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Table & Visual Analysis Column -->
+                <div class="lg:col-span-2 space-y-6">
+                    <!-- Table -->
+                    <div class="bg-white p-5 rounded-lg border border-slate-200 shadow-sm overflow-x-auto">
+                        <h3 class="font-bold text-slate-900 text-base mb-3">Instituciones Afectadas y Estado Operativo</h3>
+                        <table class="w-full text-xs text-left border-collapse">
+                            <thead>
+                                <tr class="bg-slate-100 text-slate-700 border-b border-slate-200">
+                                    <th class="p-2.5 font-semibold">Institución</th>
+                                    <th class="p-2.5 font-semibold">Base Activos (Dic 2024)</th>
+                                    <th class="p-2.5 font-semibold">Cuota Mercado</th>
+                                    <th class="p-2.5 font-semibold">Evento Regulatorio</th>
+                                    <th class="p-2.5 font-semibold">Resultado Final</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                <tr class="hover:bg-slate-50">
+                                    <td class="p-2.5 font-bold text-slate-900">CIBanco S.A.</td>
+                                    <td class="p-2.5">142.389B MXN (~$7.04B USD)</td>
+                                    <td class="p-2.5">0.94%</td>
+                                    <td class="p-2.5">Orden FinCEN §2313a; Gestión CNBV</td>
+                                    <td class="p-2.5 text-red-600 font-medium">Licencia Revocada; Liquidación Judicial</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="p-2.5 font-bold text-slate-900">Intercam Banco S.A.</td>
+                                    <td class="p-2.5">Confidencial / Menor</td>
+                                    <td class="p-2.5">Comercial Menor</td>
+                                    <td class="p-2.5">Intervención Administrativa CNBV</td>
+                                    <td class="p-2.5 text-red-600 font-medium">Colapso Operativo; Reasignación Fideicomisos</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50">
+                                    <td class="p-2.5 font-bold text-slate-900">Vector Casa de Bolsa</td>
+                                    <td class="p-2.5">Confidencial / Menor</td>
+                                    <td class="p-2.5">Bolsa / Capitales</td>
+                                    <td class="p-2.5">Fracaso negociación con Banco Mifel</td>
+                                    <td class="p-2.5 text-slate-600">Salida Voluntaria de Mercado; Disolución</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Market Share Chart -->
+                    <div class="bg-white p-5 rounded-lg border border-slate-200 shadow-sm">
+                        <h3 class="font-bold text-slate-900 text-base mb-1">Participación en el Sistema Bancario Mexicano</h3>
+                        <p class="text-xs text-slate-500 mb-4">Aunque representaba un 0.94% del sistema nacional, el impacto en administración de fideicomisos y giros comerciales fue sistémico.</p>
+                        <div class="chart-container">
+                            <canvas id="bankingChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: CAPEX & AI MACROECONOMICS -->
+        <section id="section-capex" class="hidden space-y-6">
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                <h2 class="text-xl font-bold text-slate-900 mb-2">Macroeconomía de la Infraestructura de IA: Inversión vs Monetización</h2>
+                <p class="text-sm text-slate-600 leading-relaxed">
+                    El ciclo de gasto de capital en supercomputación e infraestructura de IA ha alcanzado niveles históricos. Sin embargo, la brecha entre los desembolsos de los Hyperscalers y los ingresos netos adicionales genera escrutinio sobre el retorno de capital (ROIC) y los riesgos de depreciación de activos hacia 2030.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Capex Gap Chart Container -->
+                <div class="bg-white p-5 rounded-lg border border-slate-200 shadow-sm">
+                    <h3 class="font-bold text-slate-900 text-base mb-1">Inversión Capex Hyperscale vs Ingresos IA</h3>
+                    <p class="text-xs text-slate-500 mb-3">Estimación 2026 (Goldman Sachs & Gartner) en Billones de USD.</p>
+                    <div class="chart-container">
+                        <canvas id="capexChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Strategic Projections & Data Summary -->
+                <div class="space-y-4">
+                    <div class="bg-white p-5 rounded-lg border border-slate-200 shadow-sm">
+                        <h3 class="font-bold text-slate-900 text-base mb-3">Estimaciones Estratégicas Clave (2026 - 2030)</h3>
+                        <div class="space-y-3 text-xs">
+                            <div class="flex justify-between items-center p-2.5 bg-slate-50 rounded">
+                                <div>
+                                    <span class="font-bold text-slate-800">Capex Top-5 Hyperscalers (2026)</span>
+                                    <p class="text-slate-500">Amazon, Microsoft, Alphabet, Meta, Oracle</p>
+                                </div>
+                                <span class="font-bold text-brand-700 text-sm">$700B - $830B</span>
+                            </div>
+                            <div class="flex justify-between items-center p-2.5 bg-slate-50 rounded">
+                                <div>
+                                    <span class="font-bold text-slate-800">Brecha Anual de Monetización</span>
+                                    <p class="text-slate-500">Ingresos IA adicionales vs Costos Capex/Servicio</p>
+                                </div>
+                                <span class="font-bold text-amber-600 text-sm">~$230 Billones/año</span>
+                            </div>
+                            <div class="flex justify-between items-center p-2.5 bg-slate-50 rounded">
+                                <div>
+                                    <span class="font-bold text-slate-800">Riesgo de Deterioro de Infraestructura (Gartner 2030)</span>
+                                    <p class="text-slate-500">Capex acumulado en riesgo si no se logran metas de ROIC</p>
+                                </div>
+                                <span class="font-bold text-red-600 text-sm">$3.50 Trillones</span>
+                            </div>
+                            <div class="flex justify-between items-center p-2.5 bg-slate-50 rounded">
+                                <div>
+                                    <span class="font-bold text-slate-800">Requerimiento Acumulado de Ingresos (a 2030)</span>
+                                    <p class="text-slate-500">Para cubrir Capex, costo de deuda y 12% ROIC</p>
+                                </div>
+                                <span class="font-bold text-slate-900 text-sm">$8.50 Trillones</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Diversification Grid -->
+                    <div class="bg-white p-5 rounded-lg border border-slate-200 shadow-sm">
+                        <h3 class="font-bold text-slate-900 text-base mb-2">Diversificación Regional y Soberanía</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed mb-3">
+                            Para mitigar riesgos geopolíticos y satisfacer leyes de soberanía de datos, los data centers se expanden globalmente:
+                        </p>
+                        <ul class="text-xs text-slate-600 space-y-1.5 list-disc list-inside">
+                            <li><strong class="text-slate-800">Europa (ETSP):</strong> €10B en fondos públicos para 7 "Gigafábricas de IA" (&gt;1GW c/u).</li>
+                            <li><strong class="text-slate-800">América Latina:</strong> ByteDance invierte $39B en Brasil; México eleva exportaciones tech al 48% del total nacional.</li>
+                            <li><strong class="text-slate-800">Oriente Medio & África:</strong> Meeza (Catar) expande 12MW; Teraco (Sudáfrica) amplía 30MW en Johannesburgo.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: EDGE AI & RISK UNDERWRITING -->
+        <section id="section-edge-risk" class="hidden space-y-6">
+            <div class="bg-white p-6 rounded-xl border border-slate-200 shadow-sm">
+                <h2 class="text-xl font-bold text-slate-900 mb-2">IA Industrializada: Robótica Submarina y Suscripción Climática</h2>
+                <p class="text-sm text-slate-600 leading-relaxed">
+                    Más allá de los centros de datos centralizados, la IA se despliega en el "borde" operativo (edge-computing) para resolver restricciones físicas extremas en el océano y restructurar la suscripción actuarial frente al cambio climático.
+                </p>
+            </div>
+
+            <!-- Subsea AUV Matrix & Capabilities -->
+            <div class="bg-white p-5 rounded-lg border border-slate-200 shadow-sm space-y-4">
+                <h3 class="font-bold text-slate-900 text-base">Sistemas Submarinos Autónomos y Arquitectura Swarm</h3>
+                <p class="text-xs text-slate-600">
+                    Las restricciones del entorno submarino (atenuación electromagnética, nulo GPS, ondas acústicas de baja frecuencia) han obligado a pasar de vehículos operados por cable (ROVs) a enjambres de AUVs/USVs autónomos integrados con GPUs a bordo.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-xs">
+                    <div class="p-4 border border-slate-200 rounded-lg bg-slate-50 flex flex-col justify-between">
+                        <div>
+                            <div class="font-bold text-slate-900 text-sm">BeeX (BETTA / A.IKANBILIS)</div>
+                            <span class="inline-block px-2 py-0.5 bg-blue-100 text-blue-800 rounded font-semibold text-[10px] my-1">Inspección CUI</span>
+                            <p class="text-slate-600 mt-2">Batería de 12 kWh, 24h de autonomía. Cámaras estéreo y ecosonda multihaz para inspección no cableada de infraestructura marina.</p>
+                        </div>
+                    </div>
+                    <div class="p-4 border border-slate-200 rounded-lg bg-slate-50 flex flex-col justify-between">
+                        <div>
+                            <div class="font-bold text-slate-900 text-sm">Saipem / Sonsub (Hydrone-D)</div>
+                            <span class="inline-block px-2 py-0.5 bg-emerald-100 text-emerald-800 rounded font-semibold text-[10px] my-1">Defensa Minada / MCM</span>
+                            <p class="text-slate-600 mt-2">Profundidad de 600m. Arquitectura híbrida compacta para contra-medidas de minas y operaciones con la Marina Italiana.</p>
+                        </div>
+                    </div>
+                    <div class="p-4 border border-slate-200 rounded-lg bg-slate-50 flex flex-col justify-between">
+                        <div>
+                            <div class="font-bold text-slate-900 text-sm">Teledyne Marine (Slocum / SEMA)</div>
+                            <span class="inline-block px-2 py-0.5 bg-purple-100 text-purple-800 rounded font-semibold text-[10px] my-1">Guerra Antisubmarina (ASW)</span>
+                            <p class="text-slate-600 mt-2">Despliegue prolongado en aguas profundas. Arreglo hidrofónico de bajo ruido e interoperabilidad con la OTAN.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Climate Underwriting Simulation / Interactive Module -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div class="bg-white p-5 rounded-lg border border-slate-200 shadow-sm space-y-4">
+                    <h3 class="font-bold text-slate-900 text-base">Modelado Predictivo de Catástrofes y Brecha Asegurada</h3>
+                    <p class="text-xs text-slate-600">
+                        Las aseguradoras están sustituyendo los promedios históricos por redes neuronales espaciales e imágenes satelitales en tiempo real. Utilice el simulador a la derecha para evaluar el impacto del déficit de cobertura de desastres naturales.
+                    </p>
+                    <div class="p-4 bg-slate-50 rounded border border-slate-200 space-y-2 text-xs">
+                        <div class="font-semibold text-slate-800">Pilares del Modelo Algorítmico:</div>
+                        <ul class="list-disc list-inside text-slate-600 space-y-1">
+                            <li><strong>Simulación Física de Amenazas:</strong> Vectores de avance de incendios y marejadas ciclónicas en alta resolución.</li>
+                            <li><strong>Sensores IoT e Integración Telemétrica:</strong> Ajustes de prima dinámicos basados en la deformación estructural en tiempo real.</li>
+                            <li><strong>Emisión de Bonos Catástrofe:</strong> Cobertura automatizada conectada con mercados de capitales.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Protection Gap Interactive Gauge -->
+                <div class="bg-white p-5 rounded-lg border border-slate-200 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <h3 class="font-bold text-slate-900 text-base mb-1">Simulador de Cobertura de Riesgo Catastrófico</h3>
+                        <p class="text-xs text-slate-500 mb-4">Ajuste la efectividad del modelo de IA para ver el impacto en la reducción de la brecha no asegurada ($133B Base 2025).</p>
+                        
+                        <div class="space-y-4 text-xs">
+                            <div>
+                                <label class="font-medium text-slate-700 flex justify-between">
+                                    <span>Adopción de Modelos Neurorriesgo:</span>
+                                    <span id="ai-adoption-val" class="font-bold text-brand-700">45%</span>
+                                </label>
+                                <input type="range" id="ai-adoption" min="0" max="100" value="45" class="w-full mt-2 accent-brand-700" oninput="updateGapSim()">
+                            </div>
+
+                            <div class="p-4 bg-brand-50 rounded border border-brand-100 space-y-2">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-slate-700 font-medium">Brecha de Protección Estimada:</span>
+                                    <span id="sim-gap-result" class="font-bold text-slate-900 text-base">$133.0B USD</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-slate-700 font-medium">Ahorro Promedio en Primas/Pérdidas:</span>
+                                    <span id="sim-savings-result" class="font-bold text-emerald-600">$18.9B USD</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <p class="text-[11px] text-slate-400 mt-4">Fuente: Informe de Resiliencia 2026 de la Sociedad Internacional de Seguros.</p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-4 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 text-center text-xs text-slate-500">
+            Síntesis Financiera y Tecnológica 2026 &bull; Basado en el informe institucional global de reconfiguración y regulación.
+        </div>
+    </footer>
+
+    <!-- Application Script -->
+    <script>
+        // Tab Navigation Logic
+        function switchTab(tabId) {
+            const tabs = ['overview', 'banking', 'capex', 'edge-risk'];
+            tabs.forEach(id => {
+                const section = document.getElementById(`section-${id}`);
+                const navBtn = document.getElementById(`nav-${id}`);
+                
+                if (id === tabId) {
+                    section.classList.remove('hidden');
+                    navBtn.classList.add('tab-active');
+                    navBtn.classList.remove('border-transparent');
+                } else {
+                    section.classList.add('hidden');
+                    navBtn.classList.remove('tab-active');
+                    navBtn.classList.add('border-transparent');
+                }
+            });
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Initialize Chart.js Graphs
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Mexican Banking Market Share Donut Chart
+            const ctxBanking = document.getElementById('bankingChart').getContext('2d');
+            new Chart(ctxBanking, {
+                type: 'doughnut',
+                data: {
+                    labels: ['CIBanco S.A. (Revocado)', 'Resto del Sistema Bancario MX'],
+                    datasets: [{
+                        data: [0.94, 99.06],
+                        backgroundColor: ['#ef4444', '#cbd5e1'],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                font: { size: 11 },
+                                boxWidth: 12
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return ` ${context.label}: ${context.raw}%`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+
+            // 2. AI Capex vs Monetization Gap Bar Chart
+            const ctxCapex = document.getElementById('capexChart').getContext('2d');
+            new Chart(ctxCapex, {
+                type: 'bar',
+                data: {
+                    labels: ['Capex Hyperscalers (2026)', 'Gasto Total IA (Gartner)', 'Ingresos Cloud Extra IA', 'Brecha Monetización'],
+                    datasets: [{
+                        label: 'Billones de USD ($B)',
+                        data: [765, 2520, 70, 230],
+                        backgroundColor: ['#0369a1', '#0284c7', '#10b981', '#f59e0b'],
+                        borderRadius: 4
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return ` Valor: $${context.raw} Billones USD`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: { color: '#f1f5f9' },
+                            ticks: { font: { size: 10 } }
+                        },
+                        x: {
+                            grid: { display: false },
+                            ticks: { font: { size: 10 } }
+                        }
+                    }
+                }
+            });
+        });
+
+        // Interactive Risk Gap Simulator Logic
+        function updateGapSim() {
+            const val = document.getElementById('ai-adoption').value;
+            document.getElementById('ai-adoption-val').innerText = `${val}%`;
+
+            const baseGap = 133.0; // Billions
+            // Reduction formula: Higher adoption reduces non-insured gap
+            const reducedGap = baseGap * (1 - (val * 0.0035));
+            const savings = baseGap - reducedGap;
+
+            document.getElementById('sim-gap-result').innerText = `$${reducedGap.toFixed(1)}B USD`;
+            document.getElementById('sim-savings-result').innerText = `$${savings.toFixed(1)}B USD`;
+        }
+    </script>
+</body>
+</html>
